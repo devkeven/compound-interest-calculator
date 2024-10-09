@@ -4,8 +4,7 @@ Console.WriteLine("Compound Interest Calculator(anual)");
 string insertedValue = "";
 Boolean rightValue = false;
 
-decimal amount;
-double interestRate;
+double interestRate, amount;
 int investmentYears;
 
 // get the initial amout from user
@@ -14,7 +13,7 @@ do
 	Console.WriteLine("Insert the initial amout(€):");
 	insertedValue = Console.ReadLine();
 
-	rightValue = decimal.TryParse(insertedValue, out amount);
+	rightValue = double.TryParse(insertedValue, out amount);
 
 } while (!rightValue);
 
@@ -41,9 +40,15 @@ do
 // calculations
 double r = interestRate/100;
 
-// final value
-var finalValue = (double) amount * Math.Pow(1 + r, investmentYears);
+Console.WriteLine("---------------------------------------");
+Console.WriteLine("|Year|   Amount|Interest value|Accumulated value|");
 
-var interestValue = (double)amount * Math.Pow(1 + r, investmentYears);
+for (int i = 1; i <= investmentYears;i++)
+{
+	var finalValue = amount * Math.Pow(1 + r, i);
+	var interestValue = amount * Math.Pow(1 + r, i) - amount;
 
-Console.WriteLine(finalValue);
+	Console.WriteLine("|" + i.ToString().PadLeft(4) + "|" + amount.ToString("0.00").PadLeft(9) + "|" + interestValue.ToString("0.00").PadLeft(14) + "|" +  finalValue.ToString("0.00").PadLeft(17) + "|");
+
+	amount = finalValue;
+}
